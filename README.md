@@ -10,7 +10,8 @@
 How to run (Node must be installed on your machine):
 
 ```
-git clone git@github.com:ellisthomas/pet-food.git
+git clone git@github.com:ellisthomas/seasonal-sales.git
+cd seasonal-sales
 npm install http-server -g
 http-server -p 8080
 ```
