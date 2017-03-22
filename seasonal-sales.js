@@ -70,7 +70,7 @@ function dataHandler(data) {
 				products["category_name"] = categories[i].name;
 				products["category_discount"] = categories[i].discount;
 				products["category_season_discount"] = categories[i].season_discount;
-				// products["category_discount"]
+				products["category_discount_price"] = categories[i].discount_price;
 			}
 		}
 	})
