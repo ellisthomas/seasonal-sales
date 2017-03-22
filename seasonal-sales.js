@@ -1,10 +1,10 @@
 //////////////////////////// PRODUCTS ////////////////////////////////////////////
 
 var productContainer = document.getElementById("productContainer");
-
-function makeDom(xhrData) {
 	var productString = ""
 	var currentProduct;
+
+function makeDom(xhrData) {
 
 	for (var i = 0; i < xhrData.products.length; i++) {
 		currentProduct = xhrData.products[i];
@@ -27,10 +27,15 @@ function makeDom(xhrData) {
 //////////////////////////// CATEGORIES ////////////////////////////////////////////
 
 var categoryContainer = document.getElementById("categoryContainer");
-
-function categoryDom(xhrData) {
 	var categoryString = ""
 	var currentCategory;
+
+	// var Apparel = "";
+	// var Furniture = "";
+	// var Household = ""; 
+
+
+function categoryDom(xhrData) {
 	for (var j = 0; j < xhrData.categories.length; j++) {
 		currentCategory = xhrData.categories[j];
 
@@ -42,10 +47,10 @@ function categoryDom(xhrData) {
 	categoryString += `<p>${currentCategory.discount}</p>`;
 	categoryString += `</div></div>`;
 
-	// if (currentCategory.id === currentProduct.category_id) {
-	// 			currentProduct.price = currentProduct.price - (currentProduct.price * currentCategory.discount); //put a line to write to DOM
-	// 			console.log("You might be on to something", currentProduct.price);
-	// 	}
+	if (currentCategory.id === currentProduct.category_id) {
+				currentProduct.price = currentProduct.price - (currentProduct.price * currentCategory.discount); //put a line to write to DOM
+				console.log("You might be on to something", currentProduct.price);
+		}
 
 	}
 		categoryContainer.innerHTML = categoryString;
