@@ -3,11 +3,12 @@
 var productContainer = document.getElementById("productContainer");
 	var productString = ""
 	var currentProduct;
+	var products = [];
 
-function makeDom(xhrData) {
+function makeDom() {
 
-	for (var i = 0; i < xhrData.products.length; i++) {
-		currentProduct = xhrData.products[i];
+	for (var i = 0; i < products.length; i++) {
+		currentProduct = products[i];
 
 	productString += `<div class="col-sm-6 col-md-4">`;
 	productString += `<div class="thumbnail">`;
@@ -29,6 +30,7 @@ function makeDom(xhrData) {
 var categoryContainer = document.getElementById("categoryContainer");
 	var categoryString = ""
 	var currentCategory;
+	var categories = [];
 
 	// var Apparel = "";
 	// var Furniture = "";
@@ -55,10 +57,32 @@ function categoryDom(xhrData) {
 	}
 		categoryContainer.innerHTML = categoryString;
 }
+
+function dataHandler(data) { 
+	products = data.products;
+	console.log(products);
+	products.forEach(function(products){
+		console.log("hello123");
+		for (var i = 0; i < categories.length; i++) {
+			console.log("what:::");
+			if (products.category_id === categories[i].id){
+				console.log("hello");
+				products["category_name"] = categories[i].name;
+				products["category_discount"] = categories[i].discount;
+				products["category_season_discount"] = categories[i].season_discount;
+				// products["category_discount"]
+			}
+		}
+	})
+	makeDom();
+}
+
+
+
 function executeThisCodeAfterFileLoaded() {
 	var data = JSON.parse(this.responseText);
-	makeDom(data);
-	console.log("data", data);
+	dataHandler(data);
+	// console.log("data", data);
 
 }
 
@@ -68,13 +92,22 @@ function executeThisCodeAfterFileFails() {
 
 function executeCategoryCodeAfterFileLoaded() {
 	var data = JSON.parse(this.responseText);
-	categoryDom(data);
-	console.log("data", data);
+	categoryData(data);
 }
+	function categoryData(data) {
+		categories = data.categories;
+	}
+	// categoryDom(data);
+	// console.log("data", data);
 
 function executeCategoryCodeAfterFileFails() {
 	console.log("boooooo");
 }
+var myRequestCategory = new XMLHttpRequest();
+myRequestCategory.addEventListener("load", executeCategoryCodeAfterFileLoaded);
+myRequestCategory.addEventListener("error", executeCategoryCodeAfterFileFails);
+myRequestCategory.open("GET", "categories.json");
+myRequestCategory.send();
 
 var myRequest = new XMLHttpRequest();
 myRequest.addEventListener("load", executeThisCodeAfterFileLoaded);
@@ -82,10 +115,5 @@ myRequest.addEventListener("error", executeThisCodeAfterFileFails);
 myRequest.open("GET", "products.json");
 myRequest.send();
 
-var myRequestCategory = new XMLHttpRequest();
-myRequestCategory.addEventListener("load", executeCategoryCodeAfterFileLoaded);
-myRequestCategory.addEventListener("error", executeCategoryCodeAfterFileFails);
-myRequestCategory.open("GET", "categories.json");
-myRequestCategory.send();
 
 
