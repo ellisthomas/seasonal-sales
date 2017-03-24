@@ -6,6 +6,8 @@
 #### Code sample
 
 ### Screenshot
+![seasonal-sales]()
+
 
 How to run (Node must be installed on your machine):
 
