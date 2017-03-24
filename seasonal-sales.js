@@ -10,70 +10,48 @@ var season = "";
 
 //////////////////////////// PRODUCTS ////////////////////////////////////////////
 
-function makeDom() {
-
-    for (var i = 0; i < products.length; i++) {
-        currentProduct = products[i];
-
-        productString += `<div class="col-sm-6 col-md-4">`;
-        productString += `<div class="thumbnail">`;
-        productString += `<p>${currentProduct.id}</p>`;
-        productString += `<p>${currentProduct.name}</p>`;
-        productString += `<p>${currentProduct.price}</p>`;
-        productString += `<p>${currentProduct.category_id}</p>`;
-
-        if (products[i].category_season === season) {
-            productString += `<p>${products[i].category_discPrice}</p>`;
-        } else {
-            productString += `<p>${products[i].price}</p>`
-        }
-        productString += `</div></div>`;
-
-    }
-    productContainer.innerHTML = productString;
-}
-
-//////////////////////////// CATEGORIES ////////////////////////////////////////////
-
-function categoryDom(xhrData) {
-    for (var j = 0; j < xhrData.categories.length; j++) {
-        currentCategory = xhrData.categories[j];
-
-        categoryString += `<div class="col-sm-6 col-md-4">`;
-        categoryString += `<div class="thumbnail">`;
-        categoryString += `<p>${currentCategory.id}</p>`;
-        categoryString += `<p>${currentCategory.name}</p>`;
-        categoryString += `<p>${currentCategory.season}</p>`;
-        categoryString += `<p>${currentCategory.discount}</p>`;
-        categoryString += `</div></div>`;
-
-        if (currentCategory.id === currentProduct.category_id) {
-            currentProduct.price = currentProduct.price - (currentProduct.price * currentCategory.discount); //put a line to write to DOM
-        }
-
-    }
-    categoryContainer.innerHTML = categoryString;
-}
-
 function dataHandler(data) {
     products = data.products;
     products.forEach(function(products) {
         for (var i = 0; i < categories.length; i++) {
-            console.log("what:::");
             if (products.category_id === categories[i].id) {
                 products["category_name"] = categories[i].name;
                 products["category_discount"] = categories[i].discount;
                 products["category_season_discount"] = categories[i].season_discount;
                 products["category_discount_price"] = categories[i].discount_price;
-                var discountPrice = (1 - categories[i].discount) * products.price;
-                products["category_discPrice"] = discountPrice.toFixed(2);
-
+                products["season_price"] = products.price - (products.price * categories[i].discount);
             }
         }
-    })
-    makeDom();
+    });
+    writeToDom("none");
 }
 
+function writeToDom(discountSeason) {
+    var productBuilder = "";
+
+    for (var j = 0; j < products.length; j++) {
+        productBuilder += `<div class="col-sm-6 col-md-4">`;
+        productBuilder += `<div class="thumbnail">`;
+        productBuilder += `<div id="productName">${products[j].name}</div>`;
+        productBuilder += `<div id="categoryName">${products[j].category_name}</div>`;
+        if (discountSeason === products[j].category_season_discount) {
+            productBuilder += `<div class="price">${products[j].season_price.toFixed(2)}</div>`;
+        } else {
+            productBuilder += `<div class="price">${products[j].price}</div>`;
+        }
+            productBuilder += `</div></div>`;
+    }
+    productContainer.innerHTML = productBuilder;
+}
+
+//////////////////////////// EVENT LISTENER ////////////////////////////////////////////
+
+var dropDown = document.getElementById("chooseSeason");
+
+dropDown.addEventListener("change", function(e){
+    var seasonSelection = e.target.value;
+    writeToDom(seasonSelection);
+});
 
 
 function executeThisCodeAfterFileLoaded() {
@@ -89,7 +67,7 @@ function executeThisCodeAfterFileFails() {
 
 function executeCategoryCodeAfterFileLoaded() {
     var data = JSON.parse(this.responseText);
-    categoryData(data);
+    categories = data.categories;
 }
 
 function categoryData(data) {
@@ -101,6 +79,8 @@ function categoryData(data) {
 function executeCategoryCodeAfterFileFails() {
     console.log("boooooo");
 }
+
+
 var myRequestCategory = new XMLHttpRequest();
 myRequestCategory.addEventListener("load", executeCategoryCodeAfterFileLoaded);
 myRequestCategory.addEventListener("error", executeCategoryCodeAfterFileFails);

@@ -3,66 +3,29 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="main.css">
 	<title>Seasonal Sales</title>
 </head>
 <body>
-	<h1>Socks to Clocks Dept. Store</h1>
+	
+<div class="jumbotron">
+  <h1>Socks to Clocks Dept. Store</h1>
+</div>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Brand</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Winter</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Autumn</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Spring</a></li>
-          </ul>
-        </li>
-      </ul>
-      <form class="navbar-form navbar-right" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-    </div>
-  </div>
-</nav>
-
-	<div> <!-- Original dropdown -->
-	<select id="chooseSeason">
-		<option value="winter">Winter</option>
-		<option value="autumn">Autumn</option>
-		<option value="spring">Spring</option>
-	</select>
+	<div class="dropdown"> <!-- Original dropdown -->
+    <label for="chooseSeason">Seasonal Discount:</label>
+      <select id="chooseSeason">
+        <option value="select">Select</option>
+    		<option value="Winter">Winter</option>
+    		<option value="Autumn">Autumn</option>
+    		<option value="Spring">Spring</option>
+    	</select>
 	</div>
 
 	<div id="productContainer">
-		
-	</div>
 
-	<div id="categoryContainer">
-
-	</div>
-
-	
-
-
+<footer>Hello hello hello</footer>
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
